@@ -18,6 +18,8 @@ function submitForm() {
     var destination = $('#role').val().trim();
     var firstTrainTime = $('#startDate').val().trim();
     var frequency = $('#monthlyRate').val().trim();
+    
+
     if (key == undefined) {
 
         // alert(trainName);
@@ -29,7 +31,7 @@ function submitForm() {
         });
     } else {
 
-        alert(trainName); 
+        //alert(trainName); 
         database.ref(key).update({
             trainName: trainName,
             destination: destination,
@@ -52,7 +54,7 @@ database.ref().on('child_added', function (snapshot) {
     var currentFirstTrainTime = snapshot.val().firstTrainTime;
     var currentFrequency = snapshot.val().frequency;
     var key = snapshot.key;
-    //  debugger;
+    
 
     var tRow = $("<tr>");
 
@@ -68,6 +70,7 @@ database.ref().on('child_added', function (snapshot) {
     button.addClass("btn");
     button.addClass("btn-primary");
     button.attr("key", key);
+
     var remove = $("<td>").html(button);
 
     var button1 = $("<button>");
@@ -120,6 +123,7 @@ database.ref().on('child_added', function (snapshot) {
     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
     var minsAway = $("<td>").text(moment(nextTrain).format("hh:mm"));
+
     tRow.append(minsAway);
     tRow.append(remove);
     tRow.append(update);
@@ -135,12 +139,12 @@ function removeTrain() {
 var playersRef = database.ref();
 
 playersRef.on("child_removed", function (data) {
-    alert("Calling refresh");
+    //alert("Calling refresh");
     location.reload()
 });
 
 playersRef.on("child_changed", function (data) {
-    alert("Calling refresh");
+    //alert("Calling refresh");
     location.reload()
 });
 
@@ -157,7 +161,7 @@ function loadTrain() {
         var currentFrequency = snapshot.val().frequency;
         var key = snapshot.key;
         console.log("Come on" + currentTrainName);
-        alert($("#name").text);
+        //alert($("#name").text);
         //     $("#timer").text(stopwatch.time);
         $("#name").val(currentTrainName);
         $('#role').val(currentDestination);
@@ -167,7 +171,9 @@ function loadTrain() {
         debugger;
         submit.attr("key", key);
 
-    }, function (error) {
+    },
+    
+    function (error) {
         console.log("Error: " + error.code);
     });
 }
